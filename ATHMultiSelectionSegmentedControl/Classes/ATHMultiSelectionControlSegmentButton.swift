@@ -43,7 +43,7 @@ internal class ATHMultiSelectionControlSegmentButton: UIButton {
             if !_isButtonEnabled { return }
 
             if isHighlighted {
-                backgroundColor = tintColor.withAlphaComponent(0.1)
+                backgroundColor = tintColor.withAlphaComponent(0.2)
             } else {
 
                 if _isButtonSelected {
