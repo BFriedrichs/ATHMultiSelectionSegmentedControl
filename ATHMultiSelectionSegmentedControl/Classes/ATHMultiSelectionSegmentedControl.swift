@@ -40,6 +40,19 @@ open class MultiSelectionSegmentedControl: UIView {
         }
     }
 
+  	open var preserveOne: Bool = false {
+    		didSet {
+          	if preserveOne && selectedSegmentIndices.count == 0 {
+              if let segmentButtons = _segmentButtons {
+                	if segmentButtons.count > 0 {
+                			segmentButtons[0].setButtonSelected(true)
+                  		selectedSegmentIndices = [0]
+                	}
+              }
+         	 	}
+        }
+  	}
+
     open var font: UIFont = UIFont.systemFont(ofSize: 14) {
         didSet {
             if let segmentButtons = _segmentButtons {
@@ -123,10 +136,12 @@ open class MultiSelectionSegmentedControl: UIView {
             _deselectAllSegments()
 
             for index in newValue {
-                if segments[index].isButtonEnabled {
-                    segments[index].setButtonSelected(true)
+            		if segments[index].isButtonEnabled {
+                		segments[index].setButtonSelected(true)
                 }
             }
+
+
 
         }
 
@@ -459,6 +474,9 @@ open class MultiSelectionSegmentedControl: UIView {
         }
 
         if segmentButton.isButtonSelected {
+          	guard preserveOne && selectedSegmentIndices.count > 1 else {
+            		return
+            }
             segmentButton.setButtonSelected(false)
         } else {
             segmentButton.setButtonSelected(true)
