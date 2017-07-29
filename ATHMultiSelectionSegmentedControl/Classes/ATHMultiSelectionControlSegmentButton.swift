@@ -43,7 +43,10 @@ internal class ATHMultiSelectionControlSegmentButton: UIButton {
             if !_isButtonEnabled { return }
 
             if isHighlighted {
-                backgroundColor = tintColor.withAlphaComponent(0.2)
+              if !_isButtonSelected {
+             			backgroundColor = tintColor.withAlphaComponent(0.2)
+              }
+
             } else {
 
                 if _isButtonSelected {
@@ -91,7 +94,11 @@ internal class ATHMultiSelectionControlSegmentButton: UIButton {
     fileprivate func _setSelectedState() {
 
         layer.borderColor = backgroundColor?.cgColor
-        backgroundColor = tintColor
+
+      	UIView.animate(withDuration: 0.15, animations: {
+        	self.backgroundColor = self.tintColor
+      	})
+
         var titleColor = UIColor.white
         if highlightTextColor != nil {
             titleColor = highlightTextColor!
@@ -105,7 +112,10 @@ internal class ATHMultiSelectionControlSegmentButton: UIButton {
     */
     fileprivate func _setDeselectedState() {
 
-        backgroundColor = UIColor.clear
+      	UIView.animate(withDuration: 0.15, animations: {
+        		self.backgroundColor = UIColor.clear
+     	 	})
+
         setTitleColor(tintColor, for: .normal)
         layer.borderColor = tintColor.cgColor
 
